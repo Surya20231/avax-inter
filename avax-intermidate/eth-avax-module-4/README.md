@@ -1,65 +1,69 @@
-# eth-avax-module-4
-# DegenToken
+# DegenToken Contract
 
-This Solidity smart contract is an implementation of the DegenToken ERC20 token on the Avalanche Fuji test network. The contract includes functionalities for token burning and redemption.
+## Overview
 
-## Description
+The DegenToken contract is an Ethereum ERC-20 token named "Degen" with the symbol "DGN." This contract aims to facilitate the creation and management of a token representing ownership in a decentralized application. Additionally, it includes functionality for minting new tokens, checking balances, and redeeming tokens for virtual pets.
 
-The DegenToken contract extends the ERC20 contract from the OpenZeppelin library and also inherits the Ownable contract. It creates a token named "Degen" with the symbol "DGN". The contract's constructor function mints 1000 Degen tokens and assigns them to the contract deployer.
+## Token Details
 
-The contract includes the following functions:
+- **Name:** Degen
+- **Symbol:** DGN
+- **Decimals:** 0
 
-- `burn(address _address, uint256 _amount)`: Allows the contract owner to burn a specified amount of tokens from a given address.
-- `redeem(address _address, uint256 _amount)`: Allows the contract owner to transfer a specified amount of tokens to a given address.
+## Contract Features
 
-## Getting Started
+### Minting Tokens
 
-### Prerequisites
+The contract owner, initialized during deployment, has the exclusive right to mint new tokens. The `mint` function allows the owner to create and allocate a specified amount of tokens to a designated address.
 
-- Node.js
-- npm (Node Package Manager)
+```solidity
+function mint(address to, uint256 amount) public onlyOwner {
+    _mint(to, amount);
+}
+```
+## Balance Inquiry
 
-### Installation
+Token holders can check their token balance using the `getBalance` function. It returns the balance of the caller's address.
 
-1. Clone the repository or download the source code.
+```solidity
+function getBalance() external view returns (uint256) {
+    return this.balanceOf(msg.sender);
+}
+```
+## Pet Redemption
 
-2. In the project directory, open a terminal and run the following command to install the required dependencies:
+The contract introduces a unique feature allowing token holders to redeem their tokens for virtual pets. The available pets are:
 
-$ npm install
+- Cat
+- Dog
+- Huntsman Knife
 
-### Usage
+The `redeemTokens` function enables token holders to exchange their tokens for a pet of their choice.
 
-1. Edit the `.env` file and provide the necessary private key and API key information for the Avalanche Fuji test network.
+```solidity
+function redeemTokens(uint pet) external payable {
+    // Implementation details for pet redemption
+}
+```
+## Pet Availability
 
-2. To compile the contract, run the following command:
+The contract provides a function, `petsAvailable`, to inform users about the available pets for redemption.
 
-$ npx hardhat compile
+```solidity
+function petsAvailable() external view  {
+    // Displays available pets
+}
+```
+## Usage
 
-3. To deploy the contract to the Avalanche Fuji test network, run the following command:
+To deploy the contract, specify the desired name and symbol for the ERC-20 token. The contract owner will have exclusive minting rights. Users can interact with the contract to check balances, redeem tokens for pets, and inquire about available pets.
 
-$ npx hardhat run scripts/deploy.js --network fuji
+## Disclaimer
 
-After the deployment is successful, the contract address will be displayed in the console. You can use this address to interact with the deployed contract.
+This contract is provided as-is without any warranties. Users are encouraged to review and test the contract thoroughly before deployment. The owner assumes full responsibility for the minting process, and users should exercise caution when interacting with the contract.
 
-4. To verify the contract on the Avalanche Fuji test network, run the following command:
-
-$ npx hardhat verify <contract address> --network fuji
-  
-5. To run the provided tests for the contract, run the following command:
- 
-npx hardhat run scripts/test.js --network fuji
-  
-### Networks
-
-The Hardhat configuration file (`hardhat.config.js`) includes the network settings for the Avalanche Fuji test network (`fuji`) and the Avalanche mainnet (`mainnet`).
-
-Ensure that you have the necessary private key and API key information provided in the `.env` file for the respective networks.
-  
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-  
-
+This contract is licensed under the MIT License. See the SPDX-License-Identifier header in the source code for details.
 
 
